@@ -70,7 +70,7 @@ void main(){
 
     color = vec3(d);
 
-    color.r = fract(u_t);
+    color.r = (sin(u_t * 0.25) + 1.0) / 2.0;
 
 
 

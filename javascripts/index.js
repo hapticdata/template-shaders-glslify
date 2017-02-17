@@ -27,7 +27,7 @@ function resize(){
 }
 
 
-var mouse = [0, 0];
+var mouse = [0.5, 0.5];
 
 document.addEventListener('mousemove', function(evt){
     mouse[0] = evt.clientX / window.innerWidth;
