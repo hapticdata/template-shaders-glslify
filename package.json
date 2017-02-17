@@ -1,7 +1,7 @@
 {
-  "name": "template-budo",
+  "name": "template-shader",
   "version": "1.0.0",
-  "description": "Enter your description here",
+  "description": "A boilerplate for playing with shaders in webgl",
   "main": "javascripts/index.js",
   "author": "Kyle Phillips <kyle@haptic-data.com> (http://hapticdata.com/)",
   "browserify": {
