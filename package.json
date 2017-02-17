@@ -1,0 +1,29 @@
+{
+  "name": "template-budo",
+  "version": "1.0.0",
+  "description": "Enter your description here",
+  "main": "javascripts/index.js",
+  "author": "Kyle Phillips <kyle@haptic-data.com> (http://hapticdata.com/)",
+  "browserify": {
+    "transform": [
+      "glslify"
+    ]
+  },
+  "scripts": {
+    "build": "browserify javascripts/index.js > public/bundle.js",
+    "watch": "budo javascripts/index.js:bundle.js --host=localhost -v --dir=public | garnish"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "animitter": "^3.0.0",
+    "browserify": "^14.1.0",
+    "budo": "^9.4.7",
+    "garnish": "^5.2.0",
+    "gl-shader": "^4.2.1",
+    "glsl-hsl2rgb": "^1.1.0",
+    "glsl-noise": "0.0.0",
+    "glslify": "^6.0.1",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {}
+}

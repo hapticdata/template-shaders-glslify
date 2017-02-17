@@ -1,0 +1,7 @@
+node_modules/
+.DS_Store
+*.swp
+.idea
+
+# ignore the bundle if it has been built
+public/bundle.js
