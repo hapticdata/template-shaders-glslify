@@ -53,28 +53,10 @@ gl.bindBuffer(gl.ARRAY_BUFFER, vert);
 gl.bufferData(
     gl.ARRAY_BUFFER,
     new Float32Array([
-        -1.0, 1.0,
-        0.0, -1.0,
-        -1.0, 0.0,
-        1.0, 1.0,
-        0.0, 1.0,
-        -1.0, 0.0
-    ]),
-    gl.STATIC_DRAW
-);
-
-
-//texture buffer
-var tex = gl.createBuffer();
-
-gl.bindBuffer(gl.ARRAY_BUFFER, tex);
-gl.bufferData(
-    gl.ARRAY_BUFFER,
-    new Float32Array([
-        0, 1,
-        0, 0,
-        1, 1,
-        1, 0
+        -1.0, 1.0, 0.0,
+        -1.0, -1.0, 0.0,
+        1.0, 1.0, 0.0,
+        1.0, -1.0, 0.0
     ]),
     gl.STATIC_DRAW
 );
@@ -85,13 +67,10 @@ animitter(function(delta, elapsed){
     shaderProgram.bind();
     gl.bindBuffer(gl.ARRAY_BUFFER, vert);
     shaderProgram.attributes.position.pointer();
-    //
-    gl.bindBuffer(gl.ARRAY_BUFFER, tex);
     //shaderProgram.attributes.uv.pointer();
     //for some reason shader dev tools makes u_time NaN sometimes
-    //shaderProgram.uniforms.u_time = shaderProgram.uniforms.u_time || 0.1;
+    shaderProgram.uniforms.u_time = shaderProgram.uniforms.u_time || 0.1;
     shaderProgram.uniforms.u_time = elapsed / 1000; //delta / 1000;
-    shaderProgram.uniforms.u_t = elapsed / 1000;
     shaderProgram.uniforms.u_resolution = resolution;
     shaderProgram.uniforms.u_mouse = mouse;
     shaderProgram.uniforms.u_r = Math.random();

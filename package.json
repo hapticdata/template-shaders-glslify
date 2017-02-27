@@ -1,6 +1,6 @@
 {
   "name": "template-shader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A boilerplate for playing with shaders in webgl",
   "main": "javascripts/index.js",
   "author": "Kyle Phillips <kyle@haptic-data.com> (http://hapticdata.com/)",

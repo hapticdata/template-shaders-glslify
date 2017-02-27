@@ -1,15 +1,15 @@
 precision mediump float;
 
+#pragma glslify: noise = require('glsl-noise/simplex/3d')
+
 #define PI 3.14159265359
 #define TWO_PI 6.28318530718
-
-varying vec2 vUv;
+#define NUM_OCTAVES 5
 
 uniform float u_time;
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform float u_r;
-uniform float u_t;
 
 float circle( vec2 pos, float r ){
     float l = length(pos);
@@ -21,10 +21,31 @@ float circle( vec2 pos, float r ){
 }
 
 float plot(float r, float pct){
-  return  smoothstep( pct-0.04, pct, r) - 
+  return  smoothstep( pct-0.04, pct, r) -
           smoothstep( pct, pct+0.04, r);
 }
 
+
+float rand(float n){return fract(sin(n) * 43758.5453123);}
+
+float fnoise(float p){
+    float fl = floor(p);
+  float fc = fract(p);
+    return mix(rand(fl), rand(fl + 1.0), fc);
+}
+
+
+float fbm(float x) {
+    float v = 0.0;
+    float a = 0.5;
+    float shift = float(100);
+    for (int i = 0; i < NUM_OCTAVES; ++i) {
+        v += a * fnoise(x);
+        x = x * 2.0 + shift;
+        a *= 0.5;
+    }
+    return v;
+}
 
 float poly(vec2 pos, int n){
 
@@ -38,43 +59,21 @@ void main(){
 
     vec2 uv = gl_FragCoord.xy / u_resolution;
     vec2 pos = uv * 2.0 - 1.0;
+
     //pos.x *= u_resolution.x / u_resolution.y;
-
-    vec3 color = vec3(0.0);
-
-
-    float d = 0.0;
-
-
-
-    //d = 1.0 - (cos(uv.x * TWO_PI) + 1.0) * 0.15;
-
-    d = 1.0 - (sin(uv.y * TWO_PI * 24.0) + 1.0) * 0.5; // + ((sin(fract(u_time * 0.2) * TWO_PI) * uv.x) + 1.0) * 0.5;
-
-
-    d = step(0.999, d);
 
     vec2 mouse = u_mouse * 2.0 - 1.0;
     mouse.y *= -1.0;
 
-    d = length(abs(pos - mouse));
+    float dist = length(abs(pos - mouse));
 
+    float a = atan(uv.y, uv.x) + noise(vec3(pos, 1.0));
 
-    //d = step(0.999, d);
+    float ss = sin(u_time) + 1.1 * 20.0;
 
-    /*d *= step(0.1, uv.x) * step(uv.x, 0.9);
+    float v = noise(vec3(dist, dist, 1.0) * ss * dist * a * 0.25);
 
-    d *= step(0.1, uv.y) * step(uv.y, 0.9);*/
+    v = smoothstep(0.2, 0.6, v);
 
-    
-
-    color = vec3(d);
-
-    color.r = (sin(u_t * 0.25) + 1.0) / 2.0;
-
-
-
-
-
-    gl_FragColor = vec4(color, 1.0);
+    gl_FragColor = vec4(vec3(v), 1.0);
 }
