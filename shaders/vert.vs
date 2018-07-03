@@ -1,3 +1,5 @@
+#define SHADER_NAME BASIC VERT
+
 precision mediump float;
 attribute vec3 position;
 

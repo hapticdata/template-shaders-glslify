@@ -1,3 +1,5 @@
+#define SHADER_NAME BASIC FRAG
+
 precision mediump float;
 
 #pragma glslify: noise = require('glsl-noise/simplex/3d')
